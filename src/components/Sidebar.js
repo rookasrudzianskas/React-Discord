@@ -30,6 +30,9 @@ const Sidebar = () => {
                 </div>
                 <div className="sidebar__channelsList">
                     <SidebarChannel />
+                    <SidebarChannel />
+                    <SidebarChannel />
+                    <SidebarChannel />
                 </div>
             </div>
 
