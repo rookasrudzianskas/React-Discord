@@ -51,6 +51,20 @@ const Sidebar = () => {
                 </div>
             </div>
 
+            <div className="sidebar__profile">
+                <Avatar className="" src="https://pbs.twimg.com/profile_images/1350895249678348292/RS1Aa0iK.jpg" />
+                <div className="sidebar__profileInfo">
+                    <h3>Rookas Rudzianskas</h3>
+                    <p>@ThisIsMyId</p>
+                </div>
+
+                <div className="sidebar__profileIcons">
+                    <MicIcon />
+                    <HeadsetIcon />
+                    <SettingsIcon />
+                </div>
+            </div>
+
         </div>
     );
 };
