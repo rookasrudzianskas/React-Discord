@@ -11,8 +11,14 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import { Avatar } from "@material-ui/core";
 import SidebarChannel from "./SidebarChannel";
 import {InfoOutlined} from "@material-ui/icons";
+import {useSelector} from "react-redux";
+import {selectUser} from "../features/userSlice";
+import {auth} from "../firebase";
 
 const Sidebar = () => {
+
+    const user = useSelector(selectUser);
+
     return (
         <div className="sidebar">
             <div className="sidebar__top">
@@ -45,17 +51,17 @@ const Sidebar = () => {
                     <p>Stream</p>
                 </div>
 
-                <div className="sidebar__voiceIcons">
+                <div className="sidebar__voiceIcons" >
                     <HelpOutlineIcon />
                     <CallIcon />
                 </div>
             </div>
 
             <div className="sidebar__profile">
-                <Avatar className="" src="https://pbs.twimg.com/profile_images/1350895249678348292/RS1Aa0iK.jpg" />
+                <Avatar onClick={() => auth.signOut()} className="" src={user.photo} />
                 <div className="sidebar__profileInfo">
-                    <h3>Rookas Rudzianskas</h3>
-                    <p>@ThisIsMyId</p>
+                    <h3>{user?.displayName}</h3>
+                    <p>@{user?.uid.substring(0, 5)}</p>
                 </div>
 
                 <div className="sidebar__profileIcons">
