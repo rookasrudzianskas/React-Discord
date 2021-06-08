@@ -36,6 +36,10 @@ const Sidebar = () => {
                 </div>
             </div>
 
+            <div className="sidebar__voice">
+                <SignalCellularAltIcon className="sidebar__voiceIcon" fontSize="large" />
+            </div>
+
         </div>
     );
 };
