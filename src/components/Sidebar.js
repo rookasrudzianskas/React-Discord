@@ -13,7 +13,7 @@ import SidebarChannel from "./SidebarChannel";
 import {InfoOutlined} from "@material-ui/icons";
 import {useSelector} from "react-redux";
 import {selectUser} from "../features/userSlice";
-import {auth} from "../firebase";
+import db, {auth} from "../firebase";
 
 const Sidebar = () => {
 
@@ -21,8 +21,26 @@ const Sidebar = () => {
     const [channels, setChannels] = useState([]);
 
     useEffect(() => {
-
+        db.collection("channels").onSnapshot((snapshot) => {
+            setChannels(
+                snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    channel: doc.data(),
+                }))
+            );
+        });
     }, []);
+
+    const handleAddChannel = () => {
+        const channelName = prompt('Add channel name');
+
+        if(channelName) {
+            db.collection("channels").add({
+                channelName: channelName,
+            });
+        }
+
+    };
 
     return (
         <div className="sidebar">
@@ -38,13 +56,12 @@ const Sidebar = () => {
                         <h4>Text Channels</h4>
                     </div>
 
-                    <AddIcon className="sidebar__addChannel" />
+                    <AddIcon onClick={handleAddChannel} className="sidebar__addChannel" />
                 </div>
                 <div className="sidebar__channelsList">
-                    <SidebarChannel />
-                    <SidebarChannel />
-                    <SidebarChannel />
-                    <SidebarChannel />
+                    {channels.map(channel => (
+                        <SidebarChannel channel={channel} />
+                    ))}
                 </div>
             </div>
 
@@ -65,8 +82,8 @@ const Sidebar = () => {
             <div className="sidebar__profile">
                 <Avatar onClick={() => auth.signOut()} className="" src={user.photo} />
                 <div className="sidebar__profileInfo">
-                    <h3>{user?.displayName}</h3>
-                    <p>@{user?.uid.substring(0, 5)}</p>
+                    <h3>{user.displayName}</h3>
+                    <p>@{user.uid.substring(0, 5)}</p>
                 </div>
 
                 <div className="sidebar__profileIcons">
