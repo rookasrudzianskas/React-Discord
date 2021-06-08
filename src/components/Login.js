@@ -1,12 +1,15 @@
 import React from 'react';
 import "./styles/Login.css";
 import {Button} from "@material-ui/core";
+import {auth} from "../firebase";
+import {provider} from "../firebase";
+
 const Login = () => {
 
     const signIn = () => {
         // do clever google login magic
 
-
+        auth.signInWithPopup(provider).catch((error) => alert(error.message));
     }
     return (
         <div className="login">
