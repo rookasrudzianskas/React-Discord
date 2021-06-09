@@ -44,11 +44,14 @@ const Chat = () => {
             <ChatHeader channelName={channelName} />
 
             <div className="chat__messages">
-                <Message  />
-                <Message  />
-                <Message  />
-                <Message  />
-                <Message  />
+                {messages.map((message) => (
+                    <Message
+                        key={message.message}
+                        timestamp={message.timestamp}
+                        message={message.message}
+                        user={message.user}
+                    />
+                ))}
             </div>
 
             <div className="chat__input">
