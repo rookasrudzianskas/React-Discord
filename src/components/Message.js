@@ -12,8 +12,10 @@ function Messages({ user, timestamp, message }) {
                     <span className="message__timestamp">
             {new Date(timestamp?.toDate()).toUTCString()}
           </span>
+
                 </h4>
                 <p>{message}</p>
+
             </div>
         </div>
     );

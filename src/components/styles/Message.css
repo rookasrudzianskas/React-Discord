@@ -24,3 +24,7 @@
     display: flex;
     align-items: flex-start;
 }
+
+.message__info > p {
+    margin-top: 5px;
+}
