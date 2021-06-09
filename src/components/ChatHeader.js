@@ -5,13 +5,17 @@ import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
 import GifIcon from "@material-ui/icons/Gif";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 import {HelpOutline, SearchOutlined, SendRounded} from "@material-ui/icons";
+import {useSelector} from "react-redux";
+import {selectUser} from "../features/userSlice";
+import {selectChannelId, selectChannelName} from "../features/appSlice";
 
-const ChatHeader = () => {
+const ChatHeader = ({ channelName }) => {
+
     return (
-        <div className="chatHeader">
+        <div className="chatHeader" >
             <div className="chatHeader__left">
                 <h3><span className="chatHeader__hash">#</span>
-                    Test channel name
+                    {channelName}
                 </h3>
             </div>
 
