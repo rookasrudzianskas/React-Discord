@@ -10,6 +10,7 @@ import {useSelector} from "react-redux";
 import {selectUser} from "../features/userSlice";
 import {selectChannelId, selectChannelName} from "../features/appSlice";
 import db from "../firebase";
+import firebase from "firebase";
 
 const Chat = () => {
 
@@ -26,7 +27,17 @@ const Chat = () => {
             setMessages(snapshot.docs.map((doc) => doc.data()));
         });
         }
-    })
+    }, [channelId]);
+
+    const sendMessage = e => {
+        e.preventDefault();
+        db.collection("channels").doc(channelId).collection("messages").add({
+            message: input,
+            user: user,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+        setInput("");
+    }
 
     return (
         <div className="chat">
@@ -45,7 +56,7 @@ const Chat = () => {
 
                 <form action="">
                     <input disabled={!channelId} value={input} onChange={e => setInput(e.target.value)} type="text" placeholder={`Message #TEST`}/>
-                    <button  disabled={!channelId}  className="chat__inputButton" type="submit">Send the message</button>
+                    <button onClick={sendMessage} disabled={!channelId}  className="chat__inputButton" type="submit">Send the message</button>
                 </form>
 
                 <div className="chat__inputIcons">
